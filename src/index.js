@@ -12,11 +12,75 @@ const countryInfo = document.querySelector('.country-info');
 input.addEventListener('input', debounce(showCountries, DEBOUNCE_DELAY));
 
 function showCountries() {
-    const nameCountry = input.value.trim();
-    if (nameCountry === "") {
-        countryInfo.innerHTML = "";
-        countryList.innerHTML = "";
+    const nameCountry = input.value.toLowerCase().trim();
+
+    if (!nameCountry) {
+        clearMarkup();
         return
     }
+
     fetchCountries(nameCountry)
+        .then(data => {
+    outputRender(data)
+  })
+        .catch(error => Notify.failure('Oops, there is no country with that name'));
 }
+
+function outputRender(list) {
+    if (list.length > 10) {
+    Notify.info('Too many matches found. Please enter a more specific name.');
+  } else if (list.length <= 10 && list.length > 1) {
+    clearMarkup();
+    renderList(list, countryList);
+  } else {
+    clearMarkup();
+    renderInfo(list, countryInfo);
+    return;
+  }
+}
+
+function clearMarkup () {
+  countryList.innerHTML = '';
+  countryInfo.innerHTML = '';
+}
+function renderList(list, markupEl) {
+    const markup = list
+         .map(({ flags: { svg }, name: { official } }) => {
+         return `<li class="country-list__item">
+          <img src="${svg}" alt="flag" width="48" height="48">
+          <h2 class="country-list__title">${official}</h2>
+                </li>`
+        })
+      .join('');
+    return (markupEl.innerHTML = markup);
+};
+
+function renderInfo(list, markupEl) {
+    const markup = list
+    .map(
+      ({
+        name: { official },
+        capital,
+        population,
+        flags: { svg },
+        languages,
+      }) =>
+        `<div class="country-info__box"><img src="${svg}" alt="flag" width="30">
+    <h1 class="country-info__title">${official}</h1></div>
+    <ul class="country-info__list">
+    <li class="country-info__item">
+     <h2 class="country-info___title">Capital:</h2>
+    <p class="country-info___text">${capital}</p>
+    </li>
+    <li class="country-info__item">
+        <h2 class="country-info___title">Population:</h2>
+     <p class="country-info___text">${population}</p>
+    </li>
+    <li class="country-info__item">
+    <h2 class="country-info___title">Languages:</h2>
+     <p class="country-info___text">${Object.values(languages)}</p></li>
+    </ul>`
+    )
+    .join('');
+  return (markupEl.innerHTML = markup);
+};
