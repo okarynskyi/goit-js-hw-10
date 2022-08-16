@@ -47,7 +47,7 @@ function renderList(list, markupEl) {
     const markup = list
          .map(({ flags: { svg }, name: { official } }) => {
          return `<li class="country-list__item">
-          <img src="${svg}" alt="flag" width="48" height="48">
+          <img src="${svg}" alt="flag" width="40">
           <h2 class="country-list__title">${official}</h2>
                 </li>`
         })
@@ -65,7 +65,7 @@ function renderInfo(list, markupEl) {
         flags: { svg },
         languages,
       }) =>
-        `<div class="country-info__box"><img src="${svg}" alt="flag" width="30">
+        `<div class="country-info__box"><img src="${svg}" alt="flag" width="40">
     <h1 class="country-info__title">${official}</h1></div>
     <ul class="country-info__list">
     <li class="country-info__item">

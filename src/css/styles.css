@@ -28,7 +28,6 @@ ul {
 
 h1,
 h2,
-h3,
 p {
   margin-top: 0;
   margin-bottom: 0;
@@ -48,10 +47,14 @@ p {
 
 .country-list__item {
   display: flex;
-  justify-items: center;
+  /* justify-items: center; */
+  align-items: center;
+  margin: 2px 10px;
 }
 
 .country-list__title {
   margin-right: 10px;
   margin-left: 10px;
+  display: flex;
+  align-items: center;
 }
