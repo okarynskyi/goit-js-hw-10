@@ -65,21 +65,22 @@ function renderInfo(list, markupEl) {
         flags: { svg },
         languages,
       }) =>
-        `<div class="country-info__box"><img src="${svg}" alt="flag" width="40">
-    <h1 class="country-info__title">${official}</h1></div>
-    <ul class="country-info__list">
-    <li class="country-info__item">
-     <h2 class="country-info___title">Capital:</h2>
-    <p class="country-info___text">${capital}</p>
-    </li>
-    <li class="country-info__item">
-        <h2 class="country-info___title">Population:</h2>
-     <p class="country-info___text">${population}</p>
-    </li>
-    <li class="country-info__item">
-    <h2 class="country-info___title">Languages:</h2>
-     <p class="country-info___text">${Object.values(languages)}</p></li>
-    </ul>`
+        `<div class="country-list__box"><img src="${svg}" alt="flag" width="40">
+        <h1 class="country-list__title">${official}</h1>
+        </div>
+        <ul class="country-list">
+        <li class="country-list__item">
+        <h2 class="country-list__title">Capital:</h2>
+        <p>${capital}</p>
+        </li>
+        <li class="country-list__item">
+        <h2 class="country-list__title">Population:</h2>
+        <p>${population}</p>
+        </li>
+        <li class="country-list__item">
+        <h2 class="country-list__title">Languages:</h2>
+        <p>${Object.values(languages)}</p></li>
+        </ul>`
     )
     .join('');
   return (markupEl.innerHTML = markup);
